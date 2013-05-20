@@ -1,0 +1,9 @@
+*.*
+cg
+Makefile
+!.gitignore
+!*.sh
+!*.cpp
+!*.hpp
+!*.vertices
+!*.indices
