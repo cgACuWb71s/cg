@@ -1,13 +1,13 @@
 #pragma once
 
-#include "vector.hpp"
+#include "vector3.hpp"
 
 #include <vector>
 
 struct triangle
 {
-    vector pos[3];
-    vector norm[3];
+    vector3 pos[3];
+    vector3 norm[3];
 };
 
 void

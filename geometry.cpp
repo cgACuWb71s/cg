@@ -18,7 +18,7 @@ namespace
 
     struct geometry
     {
-	std::vector<vector> vertices;
+    std::vector<vector3> vertices;
 	std::vector<indexed_triangle> triangles;
 
 	template<typename Vert, typename Trian>
@@ -27,7 +27,7 @@ namespace
 	    triangles(t.begin(), t.end())
 	{}
 
-	vector
+    vector3
 	norm(indexed_triangle const& t) const
 	{
 	    return ::norm(
@@ -104,7 +104,7 @@ init_geometry()
 	std::stringstream filename;
 	filename << "./geometry/u" << std::setfill('0') << std::setw(2) << (count+1);
 	
-	std::deque<vector> vertices;
+    std::deque<vector3> vertices;
 	{
 	    std::ifstream file((filename.str()+".vertices").c_str());
 	    if(!file)
@@ -114,7 +114,7 @@ init_geometry()
 	    
 	    while(file)
 	    {
-		vector current;
+        vector3 current;
 		for(unsigned char c=0;c!=3;++c)
 		{
 		    file >> current.c[c];
