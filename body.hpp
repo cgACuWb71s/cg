@@ -1,5 +1,7 @@
-#ifndef BODY_HPP
-#define BODY_HPP
+#pragma once
+
+//#ifndef BODY_HPP
+//#define BODY_HPP
 
 #include "vector3.hpp"
 
@@ -36,4 +38,4 @@ private:
     float radius;
 };
 
-#endif // BODY_HPP
+//#endif // BODY_HPP

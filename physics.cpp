@@ -1,6 +1,6 @@
 #include "physics.hpp"
 
-void physicsIteration(std::vector<Body> *objects, float timestep){
+void physics::physicsIteration(std::vector<Body> *objects, float timestep){
     //Kraefte berechnen
     for(unsigned int i=1; i<objects->size(); i++){
         for(unsigned int j=0; j<i; j++){

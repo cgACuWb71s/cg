@@ -2,8 +2,8 @@
 
 Body::Body()
 {
-    position = {0.0f, 0.0f, 0.0f};
-    speed = {0.0f, 0.0f, 0.0f};
+    position = vector3(0.0f, 0.0f, 0.0f);
+    speed = vector3(0.0f, 0.0f, 0.0f);
     mass = 1.0f;
     radius = 1.0f;
 }
@@ -11,8 +11,8 @@ Body::Body()
 Body::Body(float mass, float radius){
     this->mass = mass;
     this->radius = radius;
-    position = {0.0f, 0.0f, 0.0f};
-    speed = {0.0f, 0.0f, 0.0f};
+    position = vector3(0.0f, 0.0f, 0.0f);
+    speed = vector3(0.0f, 0.0f, 0.0f);
 }
 
 Body::Body(vector3 position, vector3 speed, float mass, float radius){

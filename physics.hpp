@@ -7,9 +7,11 @@
 #include <vector>
 #include <cmath>
 
+namespace physics{
 // m3/(kg*s2)
 const float gravityConstant = 6.672e-11;
 
-void physicsIteration(std::vector<Body> objects, float timestep);
+void physicsIteration(std::vector<Body> *objects, float timestep);
+}
 
 #endif // PHYSICS_HPP

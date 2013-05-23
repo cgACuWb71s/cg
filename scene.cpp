@@ -1,8 +1,12 @@
 #include "main.hpp"
 #include "geometry.hpp"
 #include "keys.hpp"
+#include "physics.hpp"
+#include "bodymanager.hpp"
 
 int planet;
+float timestep = 1e5;
+BodyManager planets;
 
 void
 init_scene()
@@ -39,6 +43,7 @@ tick_scene()
     {
 	exit(0); 
     }
+    physics::physicsIteration(planets.getBodyList(), timestep);
 }
 
 void
