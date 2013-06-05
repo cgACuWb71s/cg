@@ -4,6 +4,8 @@
 //#define BODY_HPP
 
 #include "vector3.hpp"
+#include "geometry.hpp"
+#include <vector>
 
 class Body
 {
@@ -11,6 +13,7 @@ public:
     Body();
     Body(float mass, float radius);
     Body(vector3 position, vector3 speed, float mass, float radius);
+    Body(vector3 position, vector3 speed, float mass, float radius, std::vector<triangle> hull, float color[4]);
 
     void applyImpulse(vector3 impulse);
     void move(float timestep);
@@ -27,6 +30,12 @@ public:
     float getRadius() const;
     void setRadius(float value);
 
+    std::vector<triangle> getHull() const;
+    void setHull(const std::vector<triangle> &value);
+
+    float* getColor();
+    void setColor(float value[4]);
+
 private:
     // m
     vector3 position;
@@ -36,6 +45,10 @@ private:
     float mass;
     // m
     float radius;
+
+    std::vector<triangle> hull;
+
+    float color[4];
 };
 
 //#endif // BODY_HPP

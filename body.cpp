@@ -65,3 +65,24 @@ void Body::setRadius(float value)
 {
     radius = value;
 }
+
+std::vector<triangle> Body::getHull() const
+{
+    return hull;
+}
+
+void Body::setHull(const std::vector<triangle> &value)
+{
+    hull = value;
+}
+
+float* Body::getColor(){
+    return color;
+}
+
+void Body::setColor(float value[4]){
+    color[0] = value[0];
+    color[1] = value[1];
+    color[2] = value[2];
+    color[3] = value[3];
+}
