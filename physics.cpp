@@ -2,17 +2,17 @@
 
 void physics::physicsIteration(std::vector<Body> *objects, float timestep){
     //Kraefte berechnen
-    for(unsigned int i=1; i<objects->size(); i++){
-        for(unsigned int j=0; j<i; j++){
-            vector3 rij = objects->at(j).getPosition()-objects->at(i).getPosition();
-            float gmMr3 = gravityConstant * objects->at(i).getMass() * objects->at(j).getMass() / std::pow(len(rij), 3);
+    for(std::vector<Body>::iterator i=objects->begin()+1; i!=objects->end(); i++){
+        for(std::vector<Body>::iterator j=objects->begin(); j!=i; j++){
+            vector3 rij = j->getPosition()-i->getPosition();
+            float gmMr3 = gravityConstant * i->getMass() * j->getMass() / std::pow(len(rij), 3);
             vector3 impulseij = rij * (gmMr3 * timestep);
-            objects->at(i).applyImpulse(impulseij);
-            objects->at(j).applyImpulse(impulseij*(-1));
+            i->applyImpulse(impulseij);
+            j->applyImpulse(impulseij*(-1));
         }
     }
     //bewegen
-    for(unsigned int k=0; k<objects->size(); k++){
-        objects->at(k).move(timestep);
+    for(std::vector<Body>::iterator k=objects->begin(); k!=objects->end(); k++){
+        k->move(timestep);
     }
 }

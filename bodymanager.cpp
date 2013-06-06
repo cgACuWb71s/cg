@@ -14,16 +14,8 @@ std::vector<Body>* BodyManager::getBodyList(){
 }
 
 void BodyManager::drawBodys(){
-    for(unsigned int i=0; i<bodyList->size(); i++){
-        Body bdy = bodyList->at(i);
-        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, bdy.getColor());
-        float r = bdy.getRadius();
-        glPushMatrix();
-        glScalef(r, r, r);
-        vector3 pos = bdy.getPosition();
-        glTranslatef(pos.x, pos.y, pos.z);
-        //TODO triangle-Liste zeichnen
-        glPopMatrix();
+    for(std::vector<Body>::iterator i=bodyList->begin(); i!=bodyList->end(); i++){
+        i->draw();
     }
 }
 

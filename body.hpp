@@ -3,6 +3,9 @@
 //#ifndef BODY_HPP
 //#define BODY_HPP
 
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
 #include "vector3.hpp"
 #include "geometry.hpp"
 #include <vector>
@@ -17,6 +20,8 @@ public:
 
     void applyImpulse(vector3 impulse);
     void move(float timestep);
+
+    virtual void draw();
 
     vector3 getPosition();
     void setPosition(vector3 value);
@@ -36,7 +41,7 @@ public:
     float* getColor();
     void setColor(float value[4]);
 
-private:
+protected:
     // m
     vector3 position;
     // m/s

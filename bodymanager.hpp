@@ -2,8 +2,10 @@
 #define BODYMANAGER_HPP
 
 #include <vector>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
 #include <body.hpp>
-#include <main.hpp>
 
 class BodyManager
 {
@@ -19,8 +21,6 @@ public:
     ~BodyManager();
 private:
     std::vector<Body>* bodyList;
-
-    void drawBody(Body& bdy);
 };
 
 #endif // BODYMANAGER_HPP
