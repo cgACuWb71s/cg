@@ -14,14 +14,12 @@ class Body
 {
 public:
     Body();
-    Body(float mass, float radius);
-    Body(vector3 position, vector3 speed, float mass, float radius);
-    Body(vector3 position, vector3 speed, float mass, float radius, std::vector<triangle> hull, float color[4]);
+    Body(vector3 position, vector3 speed, float mass, float radius, std::vector<triangle> hull, float color[4], bool isStar);
 
     void applyImpulse(vector3 impulse);
     void move(float timestep);
 
-    virtual void draw();
+    void draw();
 
     vector3 getPosition();
     void setPosition(vector3 value);
@@ -54,6 +52,14 @@ protected:
     std::vector<triangle> hull;
 
     float color[4];
+
+    bool isStar;
+
+    GLenum lightid;
+    static int numLights;
+    static int maxLights;
+
+    void initLight();
 };
 
 //#endif // BODY_HPP

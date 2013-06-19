@@ -4,10 +4,13 @@
 #include "physics.hpp"
 #include "bodymanager.hpp"
 #include "body.hpp"
-#include "star.hpp"
+#include "camera.hpp"
 
-const float time_factor = 1e5;
+#include <iostream>
+
+const float time_factor = 1.0f;
 BodyManager planets;
+Camera camera;
 
 void
 init_scene()
@@ -18,26 +21,28 @@ init_scene()
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-    vector3 zero(0.0f, 0.0f, 0.0f);
     float yellow[4] = {1.0f,1.0f,0.0f,1.0f};
-    planets.addBody(Star(
-        zero, zero,
-        1e9, 1e6,
-        get_geometry(0,true),yellow));
+    planets.addBody(Body(
+        vector3(1.0f, 0.0f, 0.0f),
+        vector3(0.0f, 0.0f, 0.0f),
+        10.0f, 0.3f,
+        get_geometry(0,true),yellow, true));
 
     float blue[4] = {0.5f,0.5f,1.0f,1.0f};
-    planets.addBody(Star(
-        vector3(0.0f,1e7,0.0f),
-        vector3(0.0f,0.0f,1e4),
-        1e7, 4e5,
-        get_geometry(1,true),blue));
+    planets.addBody(Body(
+        vector3(0.0f,1.0f,0.0f),
+        vector3(0.0f,0.0f,1.0f),
+        1.0f, 0.2f,
+        get_geometry(0,true),blue, true));
     float white[4] = {1.0f,1.0f,1.0f,1.0f};
     planets.addBody(Body(
-        vector3(0.0f,-1e7,0.0f),
-        vector3(0.0f,0.0f,-1e4),
-        1e7, 4e5,
-        get_geometry(2,true),white));
+        vector3(0.0f,-1.0f,0.0f),
+        vector3(0.0f,0.0f,-1.0f),
+        1.0f, 0.2f,
+        get_geometry(0,true), white, false));
     
+    camera.setBodyList(&planets);
+
     /*planet=glGenLists(1);
     glNewList(planet, GL_COMPILE);
     glBegin(GL_TRIANGLES);
@@ -65,18 +70,21 @@ tick_scene()
 	exit(0); 
     }
     physics::physicsIteration(planets.getBodyList(), time_factor*get_time());
+    camera.tickControl();
 }
 
 void
 render_scene()
 {
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
+    //glMatrixMode(GL_PROJECTION);
+    //glLoadIdentity();
     //vorlaefig
-    gluPerspective(45.0, 1.0, 1000.0, 1e11);
-    Body target = planets.getBodyList()->at(2);
-    gluLookAt(0.0, 1.1e7, 0.0, target.getPosition().x, target.getPosition().y, target.getPosition().z, 1.0, 0.0, 0.0);
+    //gluPerspective(45.0, 1.0, 1000.0, 1e11);
+    //Body target = planets.getBodyList()->at(1);
     glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    //gluLookAt(0.0, 1.1e7, 0.0, target.getPosition().x, target.getPosition().y, target.getPosition().z, 1.0, 0.0, 0.0);
+    camera.setCamera();
     planets.drawBodys();
 }

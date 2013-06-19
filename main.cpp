@@ -47,7 +47,9 @@ namespace
 	glViewport(0, 0, w, h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(30, static_cast<float>(w)/h, 1.0, 100.0);
+    //gluPerspective(30, static_cast<float>(w)/h, 1.0, 100.0);
+    gluPerspective(45.0, static_cast<float>(w)/h, 0.1, 100);
+    glMatrixMode(GL_MODELVIEW);
     }
 }
 
@@ -70,9 +72,9 @@ int main(int argc, char** argv)
     
     glutInitWindowSize(800, 600);
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE /*| GLUT_ALPHA */| GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE /*| GLUT_ALPHA */| GLUT_DEPTH| GLUT_ALPHA);
 
-    glutCreateWindow("<3");
+    glutCreateWindow("Planeten");
     glutSetCursor(GLUT_CURSOR_NONE);
 
     init_keys();

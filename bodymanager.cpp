@@ -1,4 +1,5 @@
 #include "bodymanager.hpp"
+#include <iostream>
 
 BodyManager::BodyManager()
 {
