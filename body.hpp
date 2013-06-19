@@ -10,6 +10,8 @@
 #include "geometry.hpp"
 #include <vector>
 
+#define USE_MODELS 0
+
 class Body
 {
 public:

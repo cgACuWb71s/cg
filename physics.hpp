@@ -9,7 +9,7 @@
 
 namespace physics{
 // m3/(kg*s2)
-const float gravityConstant = 6.672e-11;
+const float gravityConstant = 1.0f; //6.672e-11;
 
 void physicsIteration(std::vector<Body> *objects, float timestep);
 }

@@ -36,6 +36,7 @@ Body::Body(vector3 position, vector3 speed, float mass, float radius, std::vecto
 
 void Body::applyImpulse(vector3 impulse){
     speed += (impulse/mass);
+    //std::cout << "new Speed: "<<speed.x<<","<<speed.y<<","<<speed.z<<"\n";
 }
 
 void Body::move(float timestep){
@@ -47,20 +48,20 @@ void Body::draw(){
     if(isStar){
         float pos[4] = {position.x, position.y, position.z, 1.0f};
         glLightfv(GL_LIGHT0+lightid, GL_POSITION, pos);
-        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, black);
-        glMaterialfv(GL_FRONT, GL_SPECULAR, black);
-        glMaterialfv(GL_FRONT, GL_EMISSION, color);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, black);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, black);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, color);
     }
     else{
-        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, color);
-        glMaterialfv(GL_FRONT, GL_SPECULAR, black);
-        glMaterialfv(GL_FRONT, GL_EMISSION, black);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, color);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, black);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, black);
     }
     glPushMatrix();
-    glScalef(radius, radius, radius);
     glTranslatef(position.x, position.y, position.z);
-    glutSolidSphere(1.0, 20, 10);
-#if 0
+    glScalef(radius, radius, radius);
+
+#if USE_MODELS
     glBegin(GL_TRIANGLES);
     for(std::vector<triangle>::const_iterator i=hull.begin(); i!=hull.end(); i++){
         glNormal3fv(i->norm[0].c);
@@ -71,6 +72,8 @@ void Body::draw(){
         glVertex3fv(i->pos[2].c);
     }
     glEnd();
+#else
+    glutSolidSphere(1.0, 20, 10);
 #endif
     glPopMatrix();
 }
@@ -83,8 +86,10 @@ void Body::initLight(){
         lightid = numLights;
         numLights++;
         glEnable(GL_LIGHT0+lightid);
-        glLightfv(GL_LIGHT0+lightid,GL_DIFFUSE,color);
-        glLightfv(GL_LIGHT0+lightid,GL_SPECULAR,color);
+        float diff[4] = {color[0]*0.8f,color[1]*0.8f,color[2]*0.8f,color[3]*0.8f};
+        glLightfv(GL_LIGHT0+lightid,GL_DIFFUSE,diff);
+        float black[4] = {0.0f,0.0f,0.0f,0.0f};
+        glLightfv(GL_LIGHT0+lightid,GL_SPECULAR,black);
     }
     else{
         isStar = false;

@@ -48,7 +48,7 @@ namespace
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
     //gluPerspective(30, static_cast<float>(w)/h, 1.0, 100.0);
-    gluPerspective(45.0, static_cast<float>(w)/h, 0.1, 100);
+    gluPerspective(45.0, static_cast<float>(w)/h, 0.1, 1000);
     glMatrixMode(GL_MODELVIEW);
     }
 }

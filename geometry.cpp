@@ -150,7 +150,7 @@ init_geometry()
 		    t.i[2]=static_cast<unsigned int>(i);
 		    triangles.push_back(t);
 
-		    a=b;
+            a=b;
 		    b=i;
 		}
 	    }

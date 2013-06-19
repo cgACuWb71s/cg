@@ -12,11 +12,13 @@ public:
     Camera();
     void tickControl();
     void setCamera();
-    void setBodyList(BodyManager *input);
 private:
-    unsigned int targetIndex;
-    BodyManager *planets;
     vector3 position;
+    vector3 rotation;
+    // m/s
+    float speed;
+    // Grad/s
+    const float turnRate = 60.0f;
 };
 
 #endif // CAMERA_HPP

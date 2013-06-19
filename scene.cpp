@@ -17,49 +17,32 @@ init_scene()
 {
     glShadeModel(GL_SMOOTH);
     glEnable(GL_LIGHTING);
+    //glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
     //glDisable(GL_LIGHTING);
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-    float yellow[4] = {1.0f,1.0f,0.0f,1.0f};
+    float yellow[4] = {1.0f,0.8f,0.2f,1.0f};
     planets.addBody(Body(
         vector3(1.0f, 0.0f, 0.0f),
         vector3(0.0f, 0.0f, 0.0f),
         10.0f, 0.3f,
-        get_geometry(0,true),yellow, true));
+        get_geometry(3,true),yellow, true));
 
     float blue[4] = {0.5f,0.5f,1.0f,1.0f};
     planets.addBody(Body(
-        vector3(0.0f,1.0f,0.0f),
+        vector3(0.0f,5.0f,0.0f),
         vector3(0.0f,0.0f,1.0f),
         1.0f, 0.2f,
-        get_geometry(0,true),blue, true));
+        get_geometry(1,true),blue, false));
     float white[4] = {1.0f,1.0f,1.0f,1.0f};
     planets.addBody(Body(
-        vector3(0.0f,-1.0f,0.0f),
-        vector3(0.0f,0.0f,-1.0f),
+        vector3(30.0f,0.0f,0.0f),
+        vector3(0.0f,0.0f,1.0f),
         1.0f, 0.2f,
-        get_geometry(0,true), white, false));
-    
-    camera.setBodyList(&planets);
-
-    /*planet=glGenLists(1);
-    glNewList(planet, GL_COMPILE);
-    glBegin(GL_TRIANGLES);
-    std::vector<triangle> geom=get_geometry(get_num_geometries()-1, true);
-    for(std::vector<triangle>::const_iterator i=geom.begin();
-    	i!=geom.end();
-    	++i)
-    {
-    	for(unsigned char c=0;c!=3;++c)
-    	{
-	    glColor4f(randf(), randf(), randf(), randf());
-    	    glNormal3fv(i->norm[c].c);
-	    glVertex3fv(i->pos[c].c);
-    	}
-    }
-    glEnd();
-    glEndList();*/
+        get_geometry(2,true), white, false));
+    glMatrixMode(GL_MODELVIEW);
+    gluLookAt(0.0, 0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0);
 }
 
 void
@@ -86,5 +69,11 @@ render_scene()
     glLoadIdentity();
     //gluLookAt(0.0, 1.1e7, 0.0, target.getPosition().x, target.getPosition().y, target.getPosition().z, 1.0, 0.0, 0.0);
     camera.setCamera();
+    //Navigationsgitter
+    glPushMatrix();
+    glRotated(90.0, 1.0, 0.0, 0.0);
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glPopMatrix();
+    glutWireSphere(500.0, 36, 18);
     planets.drawBodys();
 }
