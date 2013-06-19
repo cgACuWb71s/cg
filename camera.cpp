@@ -10,7 +10,7 @@ Camera::Camera()
     rotation.x = 0.0f;
     rotation.y = 0.0f;
     rotation.z = 0.0f;
-    speed = 1.0f;
+    speed = 5.0f;
     planetIndex = 0;
     planets = NULL;
 }

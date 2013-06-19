@@ -67,8 +67,7 @@ get_time()
 
 int main(int argc, char** argv)
 {
-    // Keine Experimente!
-    srand(1);
+    srand(time(0));
     
     glutInitWindowSize(800, 600);
     glutInit(&argc, argv);
