@@ -17,8 +17,6 @@ init_scene()
 {
     glShadeModel(GL_SMOOTH);
     glEnable(GL_LIGHTING);
-    //glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
-    //glDisable(GL_LIGHTING);
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
@@ -35,14 +33,16 @@ init_scene()
         vector3(0.0f,0.0f,1.0f),
         1.0f, 0.2f,
         get_geometry(1,true),blue, false));
-    float white[4] = {1.0f,1.0f,1.0f,1.0f};
+    float red[4] = {0.9f,0.4f,0.2f,1.0f};
     planets.addBody(Body(
-        vector3(30.0f,0.0f,0.0f),
+        vector3(10.0f,0.0f,0.0f),
         vector3(0.0f,0.0f,1.0f),
         1.0f, 0.2f,
-        get_geometry(2,true), white, false));
+        get_geometry(2,true), red, false));
     glMatrixMode(GL_MODELVIEW);
     gluLookAt(0.0, 0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0);
+
+    camera.setBodyList(&planets);
 }
 
 void
@@ -52,6 +52,12 @@ tick_scene()
     {
 	exit(0); 
     }
+    if(key_released('r')){
+        planets.addRandomBody(false);
+    }
+    if(key_released('t')){
+        planets.addRandomBody(true);
+    }
     physics::physicsIteration(planets.getBodyList(), time_factor*get_time());
     camera.tickControl();
 }
@@ -60,19 +66,18 @@ void
 render_scene()
 {
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    //glMatrixMode(GL_PROJECTION);
-    //glLoadIdentity();
-    //vorlaefig
-    //gluPerspective(45.0, 1.0, 1000.0, 1e11);
-    //Body target = planets.getBodyList()->at(1);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     //gluLookAt(0.0, 1.1e7, 0.0, target.getPosition().x, target.getPosition().y, target.getPosition().z, 1.0, 0.0, 0.0);
     camera.setCamera();
     //Navigationsgitter
     glPushMatrix();
-    glRotated(90.0, 1.0, 0.0, 0.0);
-    glColor3f(1.0f, 1.0f, 1.0f);
+    glRotated(90.0, 0.0, 1.0, 0.0);
+    float white[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+    float black[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, white);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, black);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, black);
     glPopMatrix();
     glutWireSphere(500.0, 36, 18);
     planets.drawBodys();

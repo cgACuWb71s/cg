@@ -12,6 +12,7 @@ public:
     Camera();
     void tickControl();
     void setCamera();
+    void setBodyList(BodyManager *input);
 private:
     vector3 position;
     vector3 rotation;
@@ -19,6 +20,8 @@ private:
     float speed;
     // Grad/s
     const float turnRate = 60.0f;
+    BodyManager *planets;
+    unsigned int planetIndex;
 };
 
 #endif // CAMERA_HPP

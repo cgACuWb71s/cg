@@ -16,6 +16,8 @@ public:
 
     void addBody(Body newBody);
 
+    void addRandomBody(bool isStar);
+
     void drawBodys();
 
     ~BodyManager();

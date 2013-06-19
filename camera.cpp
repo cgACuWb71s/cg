@@ -6,19 +6,25 @@ Camera::Camera()
 {
     position.x = 0.0f;
     position.y = 0.0f;
-    position.z = 0.0f;
+    position.z = -10.0f;
     rotation.x = 0.0f;
     rotation.y = 0.0f;
     rotation.z = 0.0f;
     speed = 1.0f;
+    planetIndex = 0;
+    planets = NULL;
 }
 
 void Camera::setCamera(){
     gluLookAt(0.0, 0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0);
+    glTranslatef(position.x, position.y, position.z);
     glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
     glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
     glRotatef(rotation.z, 0.0f, 0.0f, -1.0f);
-    glTranslatef(position.x, position.y, position.z);
+}
+
+void Camera::setBodyList(BodyManager *input){
+    planets = input;
 }
 
 void Camera::tickControl(){
@@ -100,7 +106,9 @@ void Camera::tickControl(){
         }
         while (rotation.y < 0.0f) {
             rotation.z += 360.0f;
-        }
+        }rotation.x = 0.0f;
+        rotation.y = 0.0f;
+        rotation.z = 0.0f;
         //glRotatef(turnRate*get_time(), 0.0f, 0.0f, 1.0f);
     }
     if(key_down('n')){
@@ -113,6 +121,23 @@ void Camera::tickControl(){
         }
         //glRotatef(-turnRate*get_time(), 0.0f, 0.0f, 1.0f);
     }
+
+    if(key_released('p')){
+        if(planets != NULL){
+            planetIndex++;
+            if(planetIndex>=planets->getBodyList()->size()){
+                planetIndex = 0;
+            }
+            vector3 targetpos = planets->getBodyList()->at(planetIndex).getPosition();
+            position.x = -targetpos.x;
+            position.y = -targetpos.y;
+            position.z = -targetpos.z - 10.0f;//*planets->getBodyList()->at(planetIndex).getRadius();
+            rotation.x = 0.0f;
+            rotation.y = 0.0f;
+            rotation.z = 0.0f;
+        }
+    }
+
 #if 0
     if(key_down('r')){
         speed += 2.0f*get_time();
